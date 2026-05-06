@@ -10,7 +10,6 @@
 
   <title>Ruuvo</title>
 
-  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link
@@ -69,9 +68,9 @@
       width: 100vw;
       height: 100vh;
 
-      pointer-events: none;
-
       overflow: hidden;
+
+      pointer-events: none;
 
       z-index: -5;
     }
@@ -83,14 +82,14 @@
       border-radius: 50%;
 
       background:
-        rgba(0,0,0,0.45);
+        rgba(0,0,0,0.5);
 
       animation:
         twinkle ease-in-out infinite;
 
       will-change:
-        opacity,
-        transform;
+        transform,
+        opacity;
     }
 
     @keyframes twinkle {
@@ -103,8 +102,8 @@
 
       50% {
 
-        opacity: 0.85;
-        transform: scale(1.5);
+        opacity: 1;
+        transform: scale(1.8);
       }
     }
 
@@ -153,7 +152,7 @@
 
       white-space: nowrap;
 
-      padding-right: 0.12em;
+      padding-right: 0.14em;
       padding-bottom: 0.08em;
 
       z-index: 20;
@@ -176,7 +175,7 @@
     }
 
     /* ---------------- */
-    /* INTRO WRAPPER    */
+    /* INTRO            */
     /* ---------------- */
 
     .intro-wrapper {
@@ -213,7 +212,7 @@
       border-radius: 26px;
 
       background:
-        rgba(255,255,255,0.14);
+        rgba(255,255,255,0.18);
 
       backdrop-filter:
         blur(6px);
@@ -354,8 +353,8 @@
 
       border-radius: 50%;
 
-      top: 0;
-      left: 0;
+      left: 15%;
+      top: 72%;
 
       cursor: pointer;
 
@@ -380,16 +379,18 @@
         );
 
       box-shadow:
-        0 0 10px rgba(255,255,255,0.18);
+        0 0 18px rgba(255,255,255,0.35),
+        0 0 35px rgba(255,255,255,0.12);
 
       transition:
-        transform 2.2s cubic-bezier(.22,1,.36,1);
+        left 2.2s cubic-bezier(.22,1,.36,1),
+        top 2.2s cubic-bezier(.22,1,.36,1),
+        transform 0.15s ease;
 
       will-change:
+        left,
+        top,
         transform;
-
-      transform:
-        translate3d(15vw, 72vh, 0);
 
       backface-visibility: hidden;
     }
@@ -397,7 +398,6 @@
     .rainbow-ball:hover {
 
       transform:
-        translate3d(15vw, 72vh, 0)
         scale(1.1);
     }
 
@@ -409,8 +409,8 @@
 
       position: fixed;
 
-      left: 15vw;
-      top: calc(72vh - 24px);
+      left: 15%;
+      top: calc(72% - 24px);
 
       transform: translateX(-50%);
 
@@ -494,7 +494,7 @@
 
         top: 18px;
 
-        padding-right: 0.14em;
+        padding-right: 0.16em;
       }
 
       .intro-wrapper {
@@ -628,8 +628,10 @@
       const pageHeight =
         window.innerHeight;
 
+      /* More stars again */
+
       const STAR_COUNT = Math.floor(
-        (pageWidth * pageHeight) / 16000
+        (pageWidth * pageHeight) / 11000
       );
 
       for (let i = 0; i < STAR_COUNT; i++) {
@@ -647,15 +649,25 @@
 
         let size;
 
+        /* Bigger/funner stars */
+
         if (pageWidth < 768) {
 
           size =
-            Math.random() * 4 + 3;
+            Math.random() * 5 + 3;
 
         } else {
 
-          size =
-            Math.random() * 3 + 2;
+          if (Math.random() > 0.92) {
+
+            size =
+              Math.random() * 10 + 4;
+
+          } else {
+
+            size =
+              Math.random() * 4 + 2;
+          }
         }
 
         star.style.width =
@@ -665,7 +677,7 @@
           size + "px";
 
         star.style.opacity =
-          Math.random() * 0.7 + 0.2;
+          Math.random() * 0.8 + 0.2;
 
         star.style.animationDuration =
           (Math.random() * 4 + 4) + "s";
@@ -775,8 +787,11 @@
         currentX = randomX;
         currentY = randomY;
 
-        rainbowBall.style.transform =
-          `translate3d(${randomX}px, ${randomY}px, 0)`;
+        rainbowBall.style.left =
+          randomX + "px";
+
+        rainbowBall.style.top =
+          randomY + "px";
 
         clickCounter.style.left =
           randomX + "px";
