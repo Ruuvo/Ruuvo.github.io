@@ -490,6 +490,16 @@
         min-height: 240vh;
       }
 
+      .stars {
+
+        opacity: 0.75;
+      }
+
+      .star {
+
+        animation-duration: 7s !important;
+      }
+
       .title {
 
         top: 18px;
@@ -508,6 +518,12 @@
 
         padding:
           22px 22px;
+
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+
+        background:
+          rgba(255,255,255,0.12);
       }
 
       .small-card,
@@ -517,14 +533,23 @@
         margin-right: 0;
       }
 
+      .sparkle {
+
+        animation: none;
+      }
+
       .rainbow-ball {
 
         width: 26px;
         height: 26px;
+
+        box-shadow:
+          0 0 10px rgba(255,255,255,0.18);
       }
     }
 
   </style>
+
 </head>
 
 <body>
@@ -628,11 +653,15 @@
       const pageHeight =
         window.innerHeight;
 
-      /* More stars again */
+      const STAR_COUNT = pageWidth < 768
 
-      const STAR_COUNT = Math.floor(
-        (pageWidth * pageHeight) / 11000
-      );
+        ? Math.floor(
+            (pageWidth * pageHeight) / 22000
+          )
+
+        : Math.floor(
+            (pageWidth * pageHeight) / 11000
+          );
 
       for (let i = 0; i < STAR_COUNT; i++) {
 
@@ -649,12 +678,10 @@
 
         let size;
 
-        /* Bigger/funner stars */
-
         if (pageWidth < 768) {
 
           size =
-            Math.random() * 5 + 3;
+            Math.random() * 4 + 2.5;
 
         } else {
 
