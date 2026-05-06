@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ruuvo</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: white;
+      color: black;
+      overflow-x: hidden;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 200vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      padding-top: 80px;
+    }
+
+    /* Main Title */
+    .title {
+      position: sticky;
+      top: 20px;
+      font-size: clamp(3rem, 12vw, 10rem);
+      font-weight: bold;
+      transition: transform 0.1s linear;
+      transform-origin: top center;
+      will-change: transform;
+    }
+
+    /* Content Section */
+    .content {
+      padding: 120px 10%;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      max-width: 900px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <h1 class="title" id="title">Ruuvo</h1>
+  </section>
+
+  <section class="content">
+    <p>
+      Welcome to Ruuvo.
+    </p>
+
+    <p>
+      This is a clean starter layout with a smooth shrinking sticky title effect.
+      You can build more sections here later.
+    </p>
+  </section>
+
+  <script>
+    const title = document.getElementById("title");
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+
+      // Shrink effect
+      let scale = Math.max(0.35, 1 - scrollY / 1000);
+
+      title.style.transform = `scale(${scale})`;
+    });
+  </script>
+
+</body>
+</html>
+```
