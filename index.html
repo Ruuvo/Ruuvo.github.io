@@ -15,6 +15,7 @@
   />
 
   <style>
+
     * {
       margin: 0;
       padding: 0;
@@ -67,7 +68,8 @@
 
       border-radius: 50%;
 
-      background: rgba(0, 0, 0, 0.38);
+      /* More visible stars */
+      background: rgba(0, 0, 0, 0.55);
 
       animation-name: twinkle;
       animation-timing-function: ease-in-out;
@@ -77,6 +79,7 @@
     }
 
     @keyframes twinkle {
+
       0%, 100% {
         opacity: 0.15;
         transform: scale(1);
@@ -181,13 +184,18 @@
       z-index: -2;
     }
 
-    /* ------------- */
-    /* MOBILE TWEAKS */
-    /* ------------- */
+    /* ---------------- */
+    /* MOBILE OPTIMIZE  */
+    /* ---------------- */
 
     @media (max-width: 768px) {
+
       .title {
         top: 18px;
+      }
+
+      .hero {
+        padding-top: 70px;
       }
     }
 
@@ -197,19 +205,30 @@
 <body>
 
   <!-- Stars -->
-  <div class="stars" id="stars"></div>
+  <div
+    class="stars"
+    id="stars"
+  ></div>
 
   <!-- Hero -->
   <section class="hero">
-    <h1 class="title" id="title">
+
+    <h1
+      class="title"
+      id="title"
+    >
       Ruuvo
     </h1>
+
   </section>
 
   <script>
 
-    const title = document.getElementById("title");
-    const starsContainer = document.getElementById("stars");
+    const title =
+      document.getElementById("title");
+
+    const starsContainer =
+      document.getElementById("stars");
 
     /* ---------------------- */
     /* DYNAMIC STAR GENERATOR */
@@ -217,7 +236,7 @@
 
     function createStars() {
 
-      // Remove old stars
+      // Clear old stars
       starsContainer.innerHTML = "";
 
       const pageHeight =
@@ -226,8 +245,7 @@
       const pageWidth =
         window.innerWidth;
 
-      // Dynamic amount based on
-      // page area
+      // Dynamic amount
       const STAR_COUNT = Math.floor(
         (pageWidth * pageHeight) / 18000
       );
@@ -252,18 +270,24 @@
 
         let size;
 
-        // Occasional large stars
         if (Math.random() > 0.94) {
 
+          // Large stars
           size =
-            Math.random() * 10 + 4;
+            Math.random() * 12 + 5;
 
         } else {
 
+          // Better scaling for phones
+          const mobileBoost =
+            Math.max(
+              1,
+              700 / pageWidth
+            );
+
           size =
-            Math.random() *
-            (pageWidth / 700) +
-            1.5;
+            (Math.random() * 3 + 2)
+            * mobileBoost;
         }
 
         star.style.width =
@@ -307,7 +331,7 @@
         const scrollY =
           window.scrollY;
 
-        // Shrink smoothly
+        // Smooth shrinking
         const scale = Math.max(
           0.4,
           1 - scrollY / 1000
