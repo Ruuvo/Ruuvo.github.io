@@ -18,10 +18,15 @@
     }
 
     :root {
-      --bg: #f4f7f2;
-      --text: #1f2a1f;
-      --green: #4f7c5a;
-      --red: #b14e4e;
+      /* Updated Colors */
+      --bg: #e8e5df;
+      --text: #1e1e1e;
+
+      /* Darker muted green */
+      --green: #4d6847;
+
+      /* Soft muted red */
+      --red: #a55a52;
     }
 
     body {
@@ -37,23 +42,31 @@
       justify-content: center;
       align-items: flex-start;
       position: relative;
-      padding-top: 80px;
+
+      /* Fixed cutoff issue */
+      padding-top: 60px;
+      overflow: visible;
     }
 
     .title {
       position: sticky;
       top: 20px;
-      font-size: clamp(3rem, 12vw, 10rem);
+
+      /* Slightly smaller default size */
+      font-size: clamp(4rem, 11vw, 9rem);
+
       font-weight: 900;
-      letter-spacing: -0.06em;
+      line-height: 1;
+      letter-spacing: -0.07em;
+
       transition: transform 0.08s linear;
       transform-origin: top center;
       will-change: transform;
 
-      /* Gradient Text */
       background: linear-gradient(
         90deg,
         var(--green),
+        #726754,
         var(--red)
       );
 
@@ -64,23 +77,24 @@
       color: transparent;
     }
 
-    /* Subtle background glow */
+    /* Soft background glow */
     .hero::before {
       content: "";
       position: absolute;
-      width: 700px;
-      height: 700px;
+      width: 900px;
+      height: 900px;
+
       background: radial-gradient(
         circle,
-        rgba(79, 124, 90, 0.12),
-        rgba(177, 78, 78, 0.08),
+        rgba(77, 104, 71, 0.10),
+        rgba(165, 90, 82, 0.08),
         transparent 70%
       );
 
-      top: 50%;
+      top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      filter: blur(40px);
+      filter: blur(50px);
       z-index: -1;
     }
   </style>
@@ -97,8 +111,8 @@
     window.addEventListener("scroll", () => {
       const scrollY = window.scrollY;
 
-      // Smooth shrink effect
-      let scale = Math.max(0.35, 1 - scrollY / 1000);
+      // Smooth shrinking effect
+      let scale = Math.max(0.38, 1 - scrollY / 1000);
 
       title.style.transform = `scale(${scale})`;
     });
