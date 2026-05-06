@@ -201,6 +201,195 @@
     }
 
     /* ---------------- */
+    /* INTRO SECTION    */
+    /* ---------------- */
+
+    .intro-section {
+
+      position: relative;
+
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      gap: 24px;
+
+      margin-top: -180vh;
+      padding-bottom: 160px;
+
+      z-index: 5;
+    }
+
+    /* ---------------- */
+    /* INTRO CARDS      */
+    /* ---------------- */
+
+    .intro-card {
+
+      position: relative;
+
+      width: min(760px, 86vw);
+
+      padding:
+        28px 34px;
+
+      border-radius: 28px;
+
+      background:
+        rgba(255,255,255,0.42);
+
+      backdrop-filter:
+        blur(14px);
+
+      -webkit-backdrop-filter:
+        blur(14px);
+
+      box-shadow:
+        0 12px 45px rgba(0,0,0,0.08);
+
+      overflow: hidden;
+
+      animation:
+        floatCard 5s ease-in-out infinite;
+    }
+
+    .main-card {
+
+      rotate: -1deg;
+    }
+
+    .small-card {
+
+      width: min(520px, 78vw);
+
+      margin-left: -140px;
+
+      rotate: 1.4deg;
+
+      animation-delay: 0.6s;
+    }
+
+    .twitter-card {
+
+      width: min(560px, 80vw);
+
+      margin-right: -120px;
+
+      rotate: -1.2deg;
+
+      animation-delay: 1.2s;
+    }
+
+    /* ---------------- */
+    /* TEXT             */
+    /* ---------------- */
+
+    .intro-text {
+
+      font-size:
+        clamp(1.05rem, 2vw, 1.4rem);
+
+      line-height: 1.8;
+
+      font-weight: 700;
+
+      color:
+        rgba(0,0,0,0.72);
+
+      letter-spacing: -0.02em;
+    }
+
+    .small-text {
+
+      font-size:
+        clamp(1rem, 1.7vw, 1.2rem);
+    }
+
+    /* ---------------- */
+    /* FLOAT ANIMATION  */
+    /* ---------------- */
+
+    @keyframes floatCard {
+
+      0%, 100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    /* ---------------- */
+    /* SPARKLES         */
+    /* ---------------- */
+
+    .sparkle {
+
+      position: absolute;
+
+      color:
+        rgba(255,255,255,0.85);
+
+      text-shadow:
+        0 0 12px rgba(255,255,255,0.8);
+
+      pointer-events: none;
+
+      animation:
+        sparkleFloat 4s ease-in-out infinite;
+    }
+
+    .sparkle-1 {
+
+      top: 14px;
+      right: 22px;
+
+      font-size: 1.4rem;
+    }
+
+    .sparkle-2 {
+
+      bottom: 18px;
+      left: 24px;
+
+      font-size: 1rem;
+
+      animation-delay: 1s;
+    }
+
+    .sparkle-3 {
+
+      top: 50%;
+      right: 40px;
+
+      font-size: 0.9rem;
+
+      animation-delay: 2s;
+    }
+
+    @keyframes sparkleFloat {
+
+      0%, 100% {
+        transform:
+          translateY(0px)
+          scale(1);
+
+        opacity: 0.7;
+      }
+
+      50% {
+        transform:
+          translateY(-6px)
+          scale(1.15);
+
+        opacity: 1;
+      }
+    }
+
+    /* ---------------- */
     /* RAINBOW BALL     */
     /* ---------------- */
 
@@ -288,11 +477,6 @@
     /* SPIN PHYSICS     */
     /* ---------------- */
 
-    .rainbow-ball {
-
-      --rotation: 0deg;
-    }
-
     .rainbow-ball.spinning {
 
       animation:
@@ -346,6 +530,31 @@
         width: 26px;
         height: 26px;
       }
+
+      .intro-section {
+
+        margin-top: -190vh;
+
+        gap: 18px;
+      }
+
+      .intro-card {
+
+        padding:
+          22px 22px;
+      }
+
+      .small-card,
+      .twitter-card {
+
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .intro-text {
+
+        line-height: 1.7;
+      }
     }
 
   </style>
@@ -382,6 +591,44 @@
     >
       Ruuvo
     </h1>
+
+  </section>
+
+  <!-- Intro Cards -->
+  <section class="intro-section">
+
+    <div class="intro-card main-card">
+
+      <div class="sparkle sparkle-1">✦</div>
+      <div class="sparkle sparkle-2">✧</div>
+      <div class="sparkle sparkle-3">★</div>
+
+      <p class="intro-text">
+        Haiiii Haiii, Im Ruuvo or Liam.
+        I makes stuff on da internet.
+        Mostlyy 3d remders whem i feel like itt
+        and den stuffs like dis even morr sometimes.
+      </p>
+
+    </div>
+
+    <div class="intro-card small-card">
+
+      <p class="intro-text small-text">
+        This is is justs a rndom side thing
+        cause boreds.
+      </p>
+
+    </div>
+
+    <div class="intro-card twitter-card">
+
+      <p class="intro-text small-text">
+        Feel free 2 dm me on twitter
+        4 anythimg u wann ^v^
+      </p>
+
+    </div>
 
   </section>
 
@@ -553,7 +800,6 @@
 
         let distance = 0;
 
-        // Prevent tiny movement
         while (distance < 220) {
 
           randomX =
@@ -570,8 +816,6 @@
 
         currentX = randomX;
         currentY = randomY;
-
-        /* Smooth movement */
 
         rainbowBall.style.transition =
           "left 2.2s cubic-bezier(.22,1,.36,1), top 2.2s cubic-bezier(.22,1,.36,1)";
@@ -603,12 +847,9 @@
               "slowing"
             );
 
-            // Fade counter out
             clickCounter.classList.remove(
               "visible"
             );
-
-            // Fully stop
 
             setTimeout(() => {
 
