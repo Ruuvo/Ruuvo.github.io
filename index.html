@@ -153,7 +153,7 @@
     const starsContainer = document.getElementById("stars");
 
     // MORE stars
-    const STAR_COUNT = 450;
+    const STAR_COUNT = 1000;
 
     for (let i = 0; i < STAR_COUNT; i++) {
       const star = document.createElement("div");
@@ -165,7 +165,7 @@
       star.style.top = Math.random() * 350 + "vh";
 
       // Random size
-      const size = Math.random() * 2.5 + 0.5;
+      const size = Math.random() * 2 + 1.5;
 
       star.style.width = size + "px";
       star.style.height = size + "px";
