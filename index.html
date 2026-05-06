@@ -74,8 +74,6 @@
       pointer-events: none;
 
       z-index: -3;
-
-      will-change: transform;
     }
 
     .star {
@@ -144,6 +142,10 @@
       line-height: 1.1;
 
       letter-spacing: -0.045em;
+
+      /* Prevent cutoff */
+      padding-right: 0.12em;
+      padding-bottom: 0.08em;
 
       white-space: nowrap;
 
@@ -490,6 +492,8 @@
       .title {
 
         top: 18px;
+
+        padding-right: 0.14em;
       }
 
       .intro-wrapper {
@@ -642,8 +646,6 @@
 
         let size;
 
-        /* Bigger stars on mobile */
-
         if (pageWidth < 768) {
 
           size =
@@ -690,7 +692,7 @@
     );
 
     /* ---------------- */
-    /* SCROLL EFFECTS   */
+    /* TITLE SCALING    */
     /* ---------------- */
 
     window.addEventListener(
@@ -700,8 +702,6 @@
         const scrollY =
           window.scrollY;
 
-        /* Title scaling */
-
         const scale = Math.max(
           0.4,
           1 - scrollY / 1000
@@ -709,11 +709,6 @@
 
         title.style.transform =
           `translateX(-50%) scale(${scale})`;
-
-        /* Star parallax */
-
-        starsContainer.style.transform =
-          `translateY(${scrollY * 0.15}px)`;
       }
     );
 
