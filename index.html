@@ -2,12 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>Ruuvo</title>
 
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
 
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
@@ -23,6 +33,7 @@
     }
 
     :root {
+
       --bg: #e8e5df;
 
       --green: #445f40;
@@ -34,6 +45,7 @@
     }
 
     body {
+
       font-family: 'Inter', sans-serif;
 
       background: var(--bg);
@@ -50,6 +62,7 @@
     /* ---------------- */
 
     .stars {
+
       position: absolute;
       inset: 0;
 
@@ -64,11 +77,11 @@
     }
 
     .star {
+
       position: absolute;
 
       border-radius: 50%;
 
-      /* More visible stars */
       background: rgba(0, 0, 0, 0.55);
 
       animation-name: twinkle;
@@ -96,6 +109,7 @@
     /* ------------ */
 
     .hero {
+
       min-height: 300vh;
 
       display: flex;
@@ -112,6 +126,7 @@
     /* -------- */
 
     .title {
+
       position: fixed;
 
       top: 25px;
@@ -158,6 +173,7 @@
     /* ---------- */
 
     .hero::before {
+
       content: "";
 
       position: fixed;
@@ -185,6 +201,133 @@
     }
 
     /* ---------------- */
+    /* RAINBOW BALL     */
+    /* ---------------- */
+
+    .rainbow-ball {
+
+      position: fixed;
+
+      width: 30px;
+      height: 30px;
+
+      border-radius: 50%;
+
+      top: 70%;
+      left: 15%;
+
+      cursor: pointer;
+
+      z-index: 20;
+
+      background:
+        radial-gradient(
+          circle at 30% 30%,
+          rgba(255,255,255,0.95),
+          transparent 28%
+        ),
+        conic-gradient(
+          from 0deg,
+          #ff5f6d,
+          #ffc371,
+          #47cf73,
+          #4facfe,
+          #7b61ff,
+          #ff5f6d
+        );
+
+      box-shadow:
+        0 0 14px rgba(255,255,255,0.30),
+        0 0 30px rgba(255,255,255,0.15);
+
+      transition:
+        transform 0.15s ease;
+    }
+
+    .rainbow-ball:hover {
+      transform: scale(1.15);
+    }
+
+    /* ---------------- */
+    /* CLICK COUNTER    */
+    /* ---------------- */
+
+    .click-counter {
+
+      position: fixed;
+
+      left: 15%;
+      top: calc(70% - 24px);
+
+      transform: translateX(-50%);
+
+      text-align: center;
+
+      font-size: 1rem;
+      font-weight: 700;
+
+      color: rgba(0,0,0,0.7);
+
+      pointer-events: none;
+
+      z-index: 25;
+
+      opacity: 0;
+
+      transition:
+        left 2.2s cubic-bezier(.22,1,.36,1),
+        top 2.2s cubic-bezier(.22,1,.36,1),
+        opacity 0.35s ease;
+    }
+
+    .click-counter.visible {
+      opacity: 1;
+    }
+
+    /* ---------------- */
+    /* SPIN PHYSICS     */
+    /* ---------------- */
+
+    .rainbow-ball {
+
+      --rotation: 0deg;
+    }
+
+    .rainbow-ball.spinning {
+
+      animation:
+        rainbowSpin 1.2s linear infinite;
+    }
+
+    .rainbow-ball.slowing {
+
+      animation:
+        rainbowSlow 1.4s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    @keyframes rainbowSpin {
+
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rainbowSlow {
+
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(180deg);
+      }
+    }
+
+    /* ---------------- */
     /* MOBILE OPTIMIZE  */
     /* ---------------- */
 
@@ -197,6 +340,12 @@
       .hero {
         padding-top: 70px;
       }
+
+      .rainbow-ball {
+
+        width: 26px;
+        height: 26px;
+      }
     }
 
   </style>
@@ -208,6 +357,20 @@
   <div
     class="stars"
     id="stars"
+  ></div>
+
+  <!-- Click Counter -->
+  <div
+    class="click-counter"
+    id="clickCounter"
+  >
+    0
+  </div>
+
+  <!-- Rainbow Ball -->
+  <div
+    class="rainbow-ball"
+    id="rainbowBall"
   ></div>
 
   <!-- Hero -->
@@ -230,13 +393,18 @@
     const starsContainer =
       document.getElementById("stars");
 
+    const rainbowBall =
+      document.getElementById("rainbowBall");
+
+    const clickCounter =
+      document.getElementById("clickCounter");
+
     /* ---------------------- */
     /* DYNAMIC STAR GENERATOR */
     /* ---------------------- */
 
     function createStars() {
 
-      // Clear old stars
       starsContainer.innerHTML = "";
 
       const pageHeight =
@@ -245,7 +413,6 @@
       const pageWidth =
         window.innerWidth;
 
-      // Dynamic amount
       const STAR_COUNT = Math.floor(
         (pageWidth * pageHeight) / 18000
       );
@@ -257,28 +424,21 @@
 
         star.classList.add("star");
 
-        // Random position
         star.style.left =
           Math.random() * pageWidth + "px";
 
         star.style.top =
           Math.random() * pageHeight + "px";
 
-        /* ---------------- */
-        /* DYNAMIC STAR SIZE */
-        /* ---------------- */
-
         let size;
 
         if (Math.random() > 0.94) {
 
-          // Large stars
           size =
             Math.random() * 12 + 5;
 
         } else {
 
-          // Better scaling for phones
           const mobileBoost =
             Math.max(
               1,
@@ -296,11 +456,9 @@
         star.style.height =
           size + "px";
 
-        // Brightness variation
         star.style.opacity =
           Math.random() * 0.8 + 0.2;
 
-        // Twinkle timing
         star.style.animationDuration =
           (Math.random() * 4 + 3) + "s";
 
@@ -311,10 +469,8 @@
       }
     }
 
-    // Initial stars
     createStars();
 
-    // Rebuild on resize
     window.addEventListener(
       "resize",
       createStars
@@ -331,7 +487,6 @@
         const scrollY =
           window.scrollY;
 
-        // Smooth shrinking
         const scale = Math.max(
           0.4,
           1 - scrollY / 1000
@@ -339,6 +494,133 @@
 
         title.style.transform =
           `translateX(-50%) scale(${scale})`;
+      }
+    );
+
+    /* ---------------- */
+    /* RAINBOW BALL     */
+    /* ---------------- */
+
+    let currentX =
+      window.innerWidth * 0.15;
+
+    let currentY =
+      window.innerHeight * 0.70;
+
+    let spinningTimeout;
+
+    let clickCount = 0;
+
+    rainbowBall.addEventListener(
+      "click",
+      () => {
+
+        // Count clicks
+        clickCount++;
+
+        clickCounter.textContent =
+          clickCount;
+
+        // Fade in
+        clickCounter.classList.add(
+          "visible"
+        );
+
+        clearTimeout(
+          spinningTimeout
+        );
+
+        // Remove slowdown if re-clicked
+        rainbowBall.classList.remove(
+          "slowing"
+        );
+
+        // Keep spinning active
+        rainbowBall.classList.add(
+          "spinning"
+        );
+
+        const margin = 60;
+
+        const maxX =
+          window.innerWidth - margin;
+
+        const maxY =
+          window.innerHeight - margin;
+
+        let randomX;
+        let randomY;
+
+        let distance = 0;
+
+        // Prevent tiny movement
+        while (distance < 220) {
+
+          randomX =
+            Math.random() * maxX;
+
+          randomY =
+            Math.random() * maxY;
+
+          distance = Math.sqrt(
+            Math.pow(randomX - currentX, 2) +
+            Math.pow(randomY - currentY, 2)
+          );
+        }
+
+        currentX = randomX;
+        currentY = randomY;
+
+        /* Smooth movement */
+
+        rainbowBall.style.transition =
+          "left 2.2s cubic-bezier(.22,1,.36,1), top 2.2s cubic-bezier(.22,1,.36,1)";
+
+        rainbowBall.style.left =
+          randomX + "px";
+
+        rainbowBall.style.top =
+          randomY + "px";
+
+        // Counter follows ball
+
+        clickCounter.style.left =
+          randomX + "px";
+
+        clickCounter.style.top =
+          (randomY - 24) + "px";
+
+        // Slow spin naturally
+
+        spinningTimeout = setTimeout(
+          () => {
+
+            rainbowBall.classList.remove(
+              "spinning"
+            );
+
+            rainbowBall.classList.add(
+              "slowing"
+            );
+
+            // Fade counter out
+            clickCounter.classList.remove(
+              "visible"
+            );
+
+            // Fully stop
+
+            setTimeout(() => {
+
+              rainbowBall.classList.remove(
+                "slowing"
+              );
+
+            }, 1400);
+
+          },
+          2200
+        );
       }
     );
 
