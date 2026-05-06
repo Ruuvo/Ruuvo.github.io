@@ -18,21 +18,14 @@
     }
 
     :root {
-      /* Updated Colors */
       --bg: #e8e5df;
-      --text: #1e1e1e;
-
-      /* Darker muted green */
-      --green: #4d6847;
-
-      /* Soft muted red */
+      --green: #445f40;
       --red: #a55a52;
     }
 
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
-      color: var(--text);
       overflow-x: hidden;
     }
 
@@ -42,22 +35,22 @@
       justify-content: center;
       align-items: flex-start;
       position: relative;
-
-      /* Fixed cutoff issue */
-      padding-top: 60px;
-      overflow: visible;
+      padding-top: 90px;
     }
 
     .title {
       position: sticky;
-      top: 20px;
+      top: 25px;
 
-      /* Slightly smaller default size */
-      font-size: clamp(4rem, 11vw, 9rem);
-
+      font-size: clamp(3.5rem, 10vw, 8rem);
       font-weight: 900;
-      line-height: 1;
-      letter-spacing: -0.07em;
+
+      /* FIX */
+      line-height: 1.2;
+      padding-right: 0.08em;
+
+      /* Slightly less aggressive spacing */
+      letter-spacing: -0.045em;
 
       transition: transform 0.08s linear;
       transform-origin: top center;
@@ -66,7 +59,7 @@
       background: linear-gradient(
         90deg,
         var(--green),
-        #726754,
+        #756754,
         var(--red)
       );
 
@@ -77,16 +70,16 @@
       color: transparent;
     }
 
-    /* Soft background glow */
     .hero::before {
       content: "";
       position: absolute;
+
       width: 900px;
       height: 900px;
 
       background: radial-gradient(
         circle,
-        rgba(77, 104, 71, 0.10),
+        rgba(68, 95, 64, 0.10),
         rgba(165, 90, 82, 0.08),
         transparent 70%
       );
@@ -94,6 +87,7 @@
       top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
+
       filter: blur(50px);
       z-index: -1;
     }
@@ -111,8 +105,7 @@
     window.addEventListener("scroll", () => {
       const scrollY = window.scrollY;
 
-      // Smooth shrinking effect
-      let scale = Math.max(0.38, 1 - scrollY / 1000);
+      let scale = Math.max(0.4, 1 - scrollY / 1000);
 
       title.style.transform = `scale(${scale})`;
     });
