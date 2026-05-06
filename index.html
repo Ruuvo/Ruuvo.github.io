@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ruuvo</title>
 
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
   <style>
     * {
       margin: 0;
@@ -12,16 +17,22 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #f4f7f2;
+      --text: #1f2a1f;
+      --green: #4f7c5a;
+      --red: #b14e4e;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: white;
-      color: black;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
       overflow-x: hidden;
     }
 
-    /* Hero Section */
     .hero {
-      height: 200vh;
+      height: 220vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -29,42 +40,55 @@
       padding-top: 80px;
     }
 
-    /* Main Title */
     .title {
       position: sticky;
       top: 20px;
       font-size: clamp(3rem, 12vw, 10rem);
-      font-weight: bold;
-      transition: transform 0.1s linear;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      transition: transform 0.08s linear;
       transform-origin: top center;
       will-change: transform;
+
+      /* Gradient Text */
+      background: linear-gradient(
+        90deg,
+        var(--green),
+        var(--red)
+      );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      background-clip: text;
+      color: transparent;
     }
 
-    /* Content Section */
-    .content {
-      padding: 120px 10%;
-      font-size: 1.2rem;
-      line-height: 1.8;
-      max-width: 900px;
-      margin: auto;
+    /* Subtle background glow */
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(
+        circle,
+        rgba(79, 124, 90, 0.12),
+        rgba(177, 78, 78, 0.08),
+        transparent 70%
+      );
+
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(40px);
+      z-index: -1;
     }
   </style>
 </head>
 <body>
 
   <section class="hero">
-    <h1 class="title" id="title">Haiiiii ^v^</h1>
-  </section>
-
-  <section class="content">
-    <p>
-      Welcome to Ruuvo.
-    </p>
-
-    <p>
-      This is a clean starter layout with a smooth shrinking sticky title effect.
-      You can build more sections here later.
-    </p>
+    <h1 class="title" id="title">Ruuvo</h1>
   </section>
 
   <script>
@@ -73,7 +97,7 @@
     window.addEventListener("scroll", () => {
       const scrollY = window.scrollY;
 
-      // Shrink effect
+      // Smooth shrink effect
       let scale = Math.max(0.35, 1 - scrollY / 1000);
 
       title.style.transform = `scale(${scale})`;
