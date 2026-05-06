@@ -8,7 +8,11 @@
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     * {
@@ -19,37 +23,57 @@
 
     :root {
       --bg: #e8e5df;
+
       --green: #445f40;
       --red: #a55a52;
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      overflow-x: hidden;
-      min-height: 350vh;
+    html {
+      scroll-behavior: smooth;
     }
 
-    /* STAR FIELD */
+    body {
+      font-family: 'Inter', sans-serif;
+
+      background: var(--bg);
+
+      overflow-x: hidden;
+
+      min-height: 100vh;
+
+      position: relative;
+    }
+
+    /* ---------------- */
+    /* STAR BACKGROUND  */
+    /* ---------------- */
 
     .stars {
       position: absolute;
       inset: 0;
+
       width: 100%;
-      height: 350vh;
+      height: 100%;
 
       overflow: hidden;
-      z-index: -2;
+
       pointer-events: none;
+
+      z-index: -3;
     }
 
     .star {
       position: absolute;
+
       border-radius: 50%;
 
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.38);
 
-      animation: twinkle 4s infinite ease-in-out;
+      animation-name: twinkle;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+
+      will-change: transform, opacity;
     }
 
     @keyframes twinkle {
@@ -64,10 +88,12 @@
       }
     }
 
-    /* MAIN */
+    /* ------------ */
+    /* HERO SECTION */
+    /* ------------ */
 
     .hero {
-      height: 220vh;
+      min-height: 300vh;
 
       display: flex;
       justify-content: center;
@@ -78,22 +104,36 @@
       padding-top: 90px;
     }
 
+    /* -------- */
+    /* TITLE    */
+    /* -------- */
+
     .title {
-      position: sticky;
+      position: fixed;
+
       top: 25px;
+      left: 50%;
+
+      transform:
+        translateX(-50%)
+        scale(1);
+
+      transform-origin: center top;
 
       font-size: clamp(3.5rem, 10vw, 8rem);
 
       font-weight: 900;
-      line-height: 1.2;
 
-      padding-right: 0.08em;
+      line-height: 1.2;
 
       letter-spacing: -0.045em;
 
-      transition: transform 0.08s linear;
+      padding-right: 0.08em;
 
-      transform-origin: top center;
+      white-space: nowrap;
+
+      z-index: 10;
+
       will-change: transform;
 
       background: linear-gradient(
@@ -110,14 +150,22 @@
       color: transparent;
     }
 
-    /* Glow */
+    /* ---------- */
+    /* BACK GLOW  */
+    /* ---------- */
 
     .hero::before {
       content: "";
-      position: absolute;
+
+      position: fixed;
 
       width: 900px;
       height: 900px;
+
+      top: 40%;
+      left: 50%;
+
+      transform: translate(-50%, -50%);
 
       background: radial-gradient(
         circle,
@@ -126,68 +174,149 @@
         transparent 70%
       );
 
-      top: 40%;
-      left: 50%;
-
-      transform: translate(-50%, -50%);
-
       filter: blur(50px);
 
-      z-index: -1;
+      pointer-events: none;
+
+      z-index: -2;
+    }
+
+    /* ------------- */
+    /* MOBILE TWEAKS */
+    /* ------------- */
+
+    @media (max-width: 768px) {
+      .title {
+        top: 18px;
+      }
     }
 
   </style>
 </head>
+
 <body>
 
   <!-- Stars -->
   <div class="stars" id="stars"></div>
 
-  <!-- Main -->
+  <!-- Hero -->
   <section class="hero">
-    <h1 class="title" id="title">Ruuvo</h1>
+    <h1 class="title" id="title">
+      Ruuvo
+    </h1>
   </section>
 
   <script>
+
     const title = document.getElementById("title");
     const starsContainer = document.getElementById("stars");
 
-    // MORE stars
-    const STAR_COUNT = 1000;
+    /* ---------------------- */
+    /* DYNAMIC STAR GENERATOR */
+    /* ---------------------- */
 
-    for (let i = 0; i < STAR_COUNT; i++) {
-      const star = document.createElement("div");
+    function createStars() {
 
-      star.classList.add("star");
+      // Remove old stars
+      starsContainer.innerHTML = "";
 
-      // Random position across FULL page height
-      star.style.left = Math.random() * 100 + "vw";
-      star.style.top = Math.random() * 350 + "vh";
+      const pageHeight =
+        document.body.scrollHeight;
 
-      // Random size
-      const size = Math.random() * 2 + 1.5;
+      const pageWidth =
+        window.innerWidth;
 
-      star.style.width = size + "px";
-      star.style.height = size + "px";
+      // Dynamic amount based on
+      // page area
+      const STAR_COUNT = Math.floor(
+        (pageWidth * pageHeight) / 18000
+      );
 
-      // Random opacity
-      star.style.opacity = Math.random();
+      for (let i = 0; i < STAR_COUNT; i++) {
 
-      // Random animation timing
-      star.style.animationDelay = Math.random() * 5 + "s";
-      star.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        const star =
+          document.createElement("div");
 
-      starsContainer.appendChild(star);
+        star.classList.add("star");
+
+        // Random position
+        star.style.left =
+          Math.random() * pageWidth + "px";
+
+        star.style.top =
+          Math.random() * pageHeight + "px";
+
+        /* ---------------- */
+        /* DYNAMIC STAR SIZE */
+        /* ---------------- */
+
+        let size;
+
+        // Occasional large stars
+        if (Math.random() > 0.94) {
+
+          size =
+            Math.random() * 10 + 4;
+
+        } else {
+
+          size =
+            Math.random() *
+            (pageWidth / 700) +
+            1.5;
+        }
+
+        star.style.width =
+          size + "px";
+
+        star.style.height =
+          size + "px";
+
+        // Brightness variation
+        star.style.opacity =
+          Math.random() * 0.8 + 0.2;
+
+        // Twinkle timing
+        star.style.animationDuration =
+          (Math.random() * 4 + 3) + "s";
+
+        star.style.animationDelay =
+          Math.random() * 5 + "s";
+
+        starsContainer.appendChild(star);
+      }
     }
 
-    // Scroll shrinking
-    window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY;
+    // Initial stars
+    createStars();
 
-      let scale = Math.max(0.4, 1 - scrollY / 1000);
+    // Rebuild on resize
+    window.addEventListener(
+      "resize",
+      createStars
+    );
 
-      title.style.transform = `scale(${scale})`;
-    });
+    /* ---------------- */
+    /* TITLE ANIMATION  */
+    /* ---------------- */
+
+    window.addEventListener(
+      "scroll",
+      () => {
+
+        const scrollY =
+          window.scrollY;
+
+        // Shrink smoothly
+        const scale = Math.max(
+          0.4,
+          1 - scrollY / 1000
+        );
+
+        title.style.transform =
+          `translateX(-50%) scale(${scale})`;
+      }
+    );
 
   </script>
 
