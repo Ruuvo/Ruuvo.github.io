@@ -27,7 +27,42 @@
       font-family: 'Inter', sans-serif;
       background: var(--bg);
       overflow-x: hidden;
+      min-height: 300vh;
     }
+
+    /* STAR BACKGROUND */
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.35);
+
+      animation: twinkle 4s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.2;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.8);
+      }
+    }
+
+    /* MAIN SECTION */
 
     .hero {
       height: 220vh;
@@ -45,11 +80,9 @@
       font-size: clamp(3.5rem, 10vw, 8rem);
       font-weight: 900;
 
-      /* FIX */
       line-height: 1.2;
       padding-right: 0.08em;
 
-      /* Slightly less aggressive spacing */
       letter-spacing: -0.045em;
 
       transition: transform 0.08s linear;
@@ -69,6 +102,8 @@
       background-clip: text;
       color: transparent;
     }
+
+    /* Soft glow */
 
     .hero::before {
       content: "";
@@ -91,23 +126,52 @@
       filter: blur(50px);
       z-index: -1;
     }
+
   </style>
 </head>
 <body>
 
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Main -->
   <section class="hero">
     <h1 class="title" id="title">Ruuvo</h1>
   </section>
 
   <script>
     const title = document.getElementById("title");
+    const starsContainer = document.getElementById("stars");
 
+    // Create stars
+    for (let i = 0; i < 120; i++) {
+      const star = document.createElement("div");
+      star.classList.add("star");
+
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.top = Math.random() * 100 + "vh";
+
+      star.style.opacity = Math.random();
+      star.style.animationDelay = Math.random() * 4 + "s";
+
+      // Different sizes
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + "px";
+      star.style.height = size + "px";
+
+      starsContainer.appendChild(star);
+    }
+
+    // Scroll effects
     window.addEventListener("scroll", () => {
       const scrollY = window.scrollY;
 
+      // Title shrinking
       let scale = Math.max(0.4, 1 - scrollY / 1000);
-
       title.style.transform = `scale(${scale})`;
+
+      // Parallax stars
+      starsContainer.style.transform = `translateY(${scrollY * 0.15}px)`;
     });
   </script>
 
