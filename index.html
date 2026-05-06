@@ -288,11 +288,6 @@
     /* SPIN PHYSICS     */
     /* ---------------- */
 
-    .rainbow-ball {
-
-      --rotation: 0deg;
-    }
-
     .rainbow-ball.spinning {
 
       animation:
@@ -328,6 +323,65 @@
     }
 
     /* ---------------- */
+    /* TEXT BOX         */
+    /* ---------------- */
+
+    .custom-textbox {
+
+      position: relative;
+
+      width: min(700px, 80vw);
+      height: 180px;
+
+      margin:
+        120vh auto 0 auto;
+
+      display: block;
+
+      padding: 20px 24px;
+
+      border: none;
+      outline: none;
+
+      resize: vertical;
+
+      border-radius: 22px;
+
+      background:
+        rgba(255,255,255,0.45);
+
+      backdrop-filter:
+        blur(10px);
+
+      -webkit-backdrop-filter:
+        blur(10px);
+
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.08);
+
+      font-family: 'Inter', sans-serif;
+
+      font-size: 1rem;
+      line-height: 1.6;
+
+      color: rgba(0,0,0,0.75);
+
+      z-index: 5;
+    }
+
+    .custom-textbox::Haiiii {
+
+      color:
+        rgba(0,0,0,0.35);
+    }
+
+    .custom-textbox:focus {
+
+      box-shadow:
+        0 12px 50px rgba(0,0,0,0.12);
+    }
+
+    /* ---------------- */
     /* MOBILE OPTIMIZE  */
     /* ---------------- */
 
@@ -345,6 +399,11 @@
 
         width: 26px;
         height: 26px;
+      }
+
+      .custom-textbox {
+
+        width: 88vw;
       }
     }
 
@@ -384,6 +443,12 @@
     </h1>
 
   </section>
+
+  <!-- Editable Text Box -->
+  <textarea
+    class="custom-textbox"
+    placeholder="PLACEHOLDER"
+  ></textarea>
 
   <script>
 
