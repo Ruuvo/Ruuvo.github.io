@@ -63,11 +63,11 @@
 
     .stars {
 
-      position: absolute;
+      position: fixed;
       inset: 0;
 
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
 
       overflow: hidden;
 
@@ -654,14 +654,11 @@
 
       starsContainer.innerHTML = "";
 
-      const pageHeight =
-        document.body.scrollHeight;
-
       const pageWidth =
         window.innerWidth;
 
       const STAR_COUNT = Math.floor(
-        (pageWidth * pageHeight) / 18000
+        (pageWidth * window.innerHeight) / 9000
       );
 
       for (let i = 0; i < STAR_COUNT; i++) {
@@ -675,7 +672,7 @@
           Math.random() * pageWidth + "px";
 
         star.style.top =
-          Math.random() * pageHeight + "px";
+          Math.random() * window.innerHeight + "px";
 
         let size;
 
@@ -762,13 +759,11 @@
       "click",
       () => {
 
-        // Count clicks
         clickCount++;
 
         clickCounter.textContent =
           clickCount;
 
-        // Fade in
         clickCounter.classList.add(
           "visible"
         );
@@ -777,12 +772,10 @@
           spinningTimeout
         );
 
-        // Remove slowdown if re-clicked
         rainbowBall.classList.remove(
           "slowing"
         );
 
-        // Keep spinning active
         rainbowBall.classList.add(
           "spinning"
         );
@@ -826,15 +819,11 @@
         rainbowBall.style.top =
           randomY + "px";
 
-        // Counter follows ball
-
         clickCounter.style.left =
           randomX + "px";
 
         clickCounter.style.top =
           (randomY - 24) + "px";
-
-        // Slow spin naturally
 
         spinningTimeout = setTimeout(
           () => {
