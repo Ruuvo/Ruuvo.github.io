@@ -52,7 +52,7 @@
 
       overflow-x: hidden;
 
-      min-height: 100vh;
+      min-height: 320vh;
 
       position: relative;
     }
@@ -74,6 +74,8 @@
       pointer-events: none;
 
       z-index: -3;
+
+      will-change: transform;
     }
 
     .star {
@@ -82,13 +84,10 @@
 
       border-radius: 50%;
 
-      background: rgba(0, 0, 0, 0.55);
+      background: rgba(0,0,0,0.55);
 
-      animation-name: twinkle;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-
-      will-change: transform, opacity;
+      animation:
+        twinkle ease-in-out infinite;
     }
 
     @keyframes twinkle {
@@ -110,15 +109,15 @@
 
     .hero {
 
-      min-height: 300vh;
-
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-
       position: relative;
 
-      padding-top: 90px;
+      min-height: 200vh;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      padding-top: 70px;
     }
 
     /* -------- */
@@ -142,17 +141,13 @@
 
       font-weight: 900;
 
-      line-height: 1.2;
+      line-height: 1.1;
 
       letter-spacing: -0.045em;
 
-      padding-right: 0.08em;
-
       white-space: nowrap;
 
-      z-index: 10;
-
-      will-change: transform;
+      z-index: 20;
 
       background: linear-gradient(
         90deg,
@@ -166,47 +161,17 @@
 
       background-clip: text;
       color: transparent;
-    }
 
-    /* ---------- */
-    /* BACK GLOW  */
-    /* ---------- */
-
-    .hero::before {
-
-      content: "";
-
-      position: fixed;
-
-      width: 900px;
-      height: 900px;
-
-      top: 40%;
-      left: 50%;
-
-      transform: translate(-50%, -50%);
-
-      background: radial-gradient(
-        circle,
-        rgba(68, 95, 64, 0.10),
-        rgba(165, 90, 82, 0.08),
-        transparent 70%
-      );
-
-      filter: blur(50px);
-
-      pointer-events: none;
-
-      z-index: -2;
+      will-change: transform;
     }
 
     /* ---------------- */
-    /* INTRO SECTION    */
+    /* INTRO CONTENT    */
     /* ---------------- */
 
-    .intro-section {
+    .intro-wrapper {
 
-      position: relative;
+      margin-top: 180px;
 
       width: 100%;
 
@@ -214,23 +179,22 @@
       flex-direction: column;
       align-items: center;
 
-      gap: 24px;
+      gap: 22px;
 
-      margin-top: -180vh;
-      padding-bottom: 160px;
+      position: relative;
 
       z-index: 5;
     }
 
     /* ---------------- */
-    /* INTRO CARDS      */
+    /* GLASS CARDS      */
     /* ---------------- */
 
     .intro-card {
 
       position: relative;
 
-      width: min(760px, 86vw);
+      width: min(760px, 88vw);
 
       padding:
         28px 34px;
@@ -238,7 +202,7 @@
       border-radius: 28px;
 
       background:
-        rgba(255,255,255,0.42);
+        rgba(255,255,255,0.18);
 
       backdrop-filter:
         blur(14px);
@@ -247,7 +211,7 @@
         blur(14px);
 
       box-shadow:
-        0 12px 45px rgba(0,0,0,0.08);
+        0 10px 35px rgba(0,0,0,0.04);
 
       overflow: hidden;
 
@@ -256,30 +220,29 @@
     }
 
     .main-card {
-
       rotate: -1deg;
     }
 
     .small-card {
 
-      width: min(520px, 78vw);
+      width: min(520px, 82vw);
 
-      margin-left: -140px;
+      margin-left: -120px;
 
-      rotate: 1.4deg;
+      rotate: 1deg;
 
-      animation-delay: 0.6s;
+      animation-delay: 0.8s;
     }
 
     .twitter-card {
 
-      width: min(560px, 80vw);
+      width: min(560px, 84vw);
 
-      margin-right: -120px;
+      margin-right: -90px;
 
-      rotate: -1.2deg;
+      rotate: -1deg;
 
-      animation-delay: 1.2s;
+      animation-delay: 1.5s;
     }
 
     /* ---------------- */
@@ -289,14 +252,14 @@
     .intro-text {
 
       font-size:
-        clamp(1.05rem, 2vw, 1.4rem);
+        clamp(1.05rem, 2vw, 1.35rem);
 
       line-height: 1.8;
 
       font-weight: 700;
 
       color:
-        rgba(0,0,0,0.72);
+        rgba(0,0,0,0.70);
 
       letter-spacing: -0.02em;
     }
@@ -304,11 +267,11 @@
     .small-text {
 
       font-size:
-        clamp(1rem, 1.7vw, 1.2rem);
+        clamp(1rem, 1.7vw, 1.15rem);
     }
 
     /* ---------------- */
-    /* FLOAT ANIMATION  */
+    /* FLOATING EFFECT  */
     /* ---------------- */
 
     @keyframes floatCard {
@@ -336,16 +299,14 @@
       text-shadow:
         0 0 12px rgba(255,255,255,0.8);
 
-      pointer-events: none;
-
       animation:
         sparkleFloat 4s ease-in-out infinite;
     }
 
     .sparkle-1 {
 
-      top: 14px;
-      right: 22px;
+      top: 12px;
+      right: 18px;
 
       font-size: 1.4rem;
     }
@@ -353,7 +314,7 @@
     .sparkle-2 {
 
       bottom: 18px;
-      left: 24px;
+      left: 20px;
 
       font-size: 1rem;
 
@@ -363,7 +324,7 @@
     .sparkle-3 {
 
       top: 50%;
-      right: 40px;
+      right: 42px;
 
       font-size: 0.9rem;
 
@@ -373,6 +334,7 @@
     @keyframes sparkleFloat {
 
       0%, 100% {
+
         transform:
           translateY(0px)
           scale(1);
@@ -381,6 +343,7 @@
       }
 
       50% {
+
         transform:
           translateY(-6px)
           scale(1.15);
@@ -402,12 +365,12 @@
 
       border-radius: 50%;
 
-      top: 70%;
+      top: 72%;
       left: 15%;
 
       cursor: pointer;
 
-      z-index: 20;
+      z-index: 25;
 
       background:
         radial-gradient(
@@ -438,7 +401,7 @@
     }
 
     /* ---------------- */
-    /* CLICK COUNTER    */
+    /* COUNTER          */
     /* ---------------- */
 
     .click-counter {
@@ -446,22 +409,20 @@
       position: fixed;
 
       left: 15%;
-      top: calc(70% - 24px);
+      top: calc(72% - 24px);
 
       transform: translateX(-50%);
-
-      text-align: center;
 
       font-size: 1rem;
       font-weight: 700;
 
       color: rgba(0,0,0,0.7);
 
+      opacity: 0;
+
       pointer-events: none;
 
-      z-index: 25;
-
-      opacity: 0;
+      z-index: 30;
 
       transition:
         left 2.2s cubic-bezier(.22,1,.36,1),
@@ -474,7 +435,7 @@
     }
 
     /* ---------------- */
-    /* SPIN PHYSICS     */
+    /* BALL SPIN        */
     /* ---------------- */
 
     .rainbow-ball.spinning {
@@ -512,28 +473,28 @@
     }
 
     /* ---------------- */
-    /* MOBILE OPTIMIZE  */
+    /* MOBILE           */
     /* ---------------- */
 
     @media (max-width: 768px) {
 
-      .title {
-        top: 18px;
+      body {
+        min-height: 280vh;
       }
 
       .hero {
-        padding-top: 70px;
+
+        padding-top: 60px;
       }
 
-      .rainbow-ball {
+      .title {
 
-        width: 26px;
-        height: 26px;
+        top: 18px;
       }
 
-      .intro-section {
+      .intro-wrapper {
 
-        margin-top: -190vh;
+        margin-top: 130px;
 
         gap: 18px;
       }
@@ -551,9 +512,10 @@
         margin-right: 0;
       }
 
-      .intro-text {
+      .rainbow-ball {
 
-        line-height: 1.7;
+        width: 26px;
+        height: 26px;
       }
     }
 
@@ -568,7 +530,7 @@
     id="stars"
   ></div>
 
-  <!-- Click Counter -->
+  <!-- Counter -->
   <div
     class="click-counter"
     id="clickCounter"
@@ -585,6 +547,7 @@
   <!-- Hero -->
   <section class="hero">
 
+    <!-- Title -->
     <h1
       class="title"
       id="title"
@@ -592,41 +555,41 @@
       Ruuvo
     </h1>
 
-  </section>
+    <!-- Content Under Title -->
+    <div class="intro-wrapper">
 
-  <!-- Intro Cards -->
-  <section class="intro-section">
+      <div class="intro-card main-card">
 
-    <div class="intro-card main-card">
+        <div class="sparkle sparkle-1">✦</div>
+        <div class="sparkle sparkle-2">✧</div>
+        <div class="sparkle sparkle-3">★</div>
 
-      <div class="sparkle sparkle-1">✦</div>
-      <div class="sparkle sparkle-2">✧</div>
-      <div class="sparkle sparkle-3">★</div>
+        <p class="intro-text">
+          Haiiii Haiii, Im Ruuvo or Liam.
+          I makes stuff on da internet.
+          Mostlyy 3d remders whem i feel like itt
+          and den stuffs like dis even morr sometimes.
+        </p>
 
-      <p class="intro-text">
-        Haiiii Haiii, Im Ruuvo or Liam.
-        I makes stuff on da internet.
-        Mostlyy 3d remders whem i feel like itt
-        and den stuffs like dis even morr sometimes.
-      </p>
+      </div>
 
-    </div>
+      <div class="intro-card small-card">
 
-    <div class="intro-card small-card">
+        <p class="intro-text small-text">
+          This is is justs a rndom side thing
+          cause boreds.
+        </p>
 
-      <p class="intro-text small-text">
-        This is is justs a rndom side thing
-        cause boreds.
-      </p>
+      </div>
 
-    </div>
+      <div class="intro-card twitter-card">
 
-    <div class="intro-card twitter-card">
+        <p class="intro-text small-text">
+          Feel free 2 dm me on twitter
+          4 anythimg u wann ^v^
+        </p>
 
-      <p class="intro-text small-text">
-        Feel free 2 dm me on twitter
-        4 anythimg u wann ^v^
-      </p>
+      </div>
 
     </div>
 
@@ -647,7 +610,7 @@
       document.getElementById("clickCounter");
 
     /* ---------------------- */
-    /* DYNAMIC STAR GENERATOR */
+    /* STAR GENERATOR         */
     /* ---------------------- */
 
     function createStars() {
@@ -657,8 +620,11 @@
       const pageWidth =
         window.innerWidth;
 
+      const pageHeight =
+        window.innerHeight;
+
       const STAR_COUNT = Math.floor(
-        (pageWidth * window.innerHeight) / 9000
+        (pageWidth * pageHeight) / 8500
       );
 
       for (let i = 0; i < STAR_COUNT; i++) {
@@ -672,26 +638,29 @@
           Math.random() * pageWidth + "px";
 
         star.style.top =
-          Math.random() * window.innerHeight + "px";
+          Math.random() * pageHeight + "px";
 
         let size;
 
-        if (Math.random() > 0.94) {
+        /* Bigger stars on mobile */
+
+        if (pageWidth < 768) {
 
           size =
-            Math.random() * 12 + 5;
+            Math.random() * 4 + 3;
 
         } else {
 
-          const mobileBoost =
-            Math.max(
-              1,
-              700 / pageWidth
-            );
+          if (Math.random() > 0.94) {
 
-          size =
-            (Math.random() * 3 + 2)
-            * mobileBoost;
+            size =
+              Math.random() * 12 + 5;
+
+          } else {
+
+            size =
+              Math.random() * 3 + 2;
+          }
         }
 
         star.style.width =
@@ -721,7 +690,7 @@
     );
 
     /* ---------------- */
-    /* TITLE ANIMATION  */
+    /* SCROLL EFFECTS   */
     /* ---------------- */
 
     window.addEventListener(
@@ -731,6 +700,8 @@
         const scrollY =
           window.scrollY;
 
+        /* Title scaling */
+
         const scale = Math.max(
           0.4,
           1 - scrollY / 1000
@@ -738,6 +709,11 @@
 
         title.style.transform =
           `translateX(-50%) scale(${scale})`;
+
+        /* Star parallax */
+
+        starsContainer.style.transform =
+          `translateY(${scrollY * 0.15}px)`;
       }
     );
 
@@ -749,7 +725,7 @@
       window.innerWidth * 0.15;
 
     let currentY =
-      window.innerHeight * 0.70;
+      window.innerHeight * 0.72;
 
     let spinningTimeout;
 
