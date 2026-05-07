@@ -224,6 +224,11 @@
         0 8px 24px rgba(0,0,0,0.04);
 
       overflow: hidden;
+
+      /* Floating animation restored */
+
+      animation:
+        floatCard 5s ease-in-out infinite;
     }
 
     .main-card {
@@ -239,6 +244,8 @@
       margin-left: -100px;
 
       rotate: 1deg;
+
+      animation-delay: 0.8s;
     }
 
     .twitter-card {
@@ -249,6 +256,27 @@
       margin-right: -80px;
 
       rotate: -1deg;
+
+      animation-delay: 1.5s;
+    }
+
+    /* ---------------- */
+    /* FLOAT ANIMATION  */
+    /* ---------------- */
+
+    @keyframes floatCard {
+
+      0%, 100% {
+
+        transform:
+          translateY(0px);
+      }
+
+      50% {
+
+        transform:
+          translateY(-8px);
+      }
     }
 
     /* ---------------- */
@@ -524,6 +552,10 @@
 
         background:
           rgba(255,255,255,0.12);
+
+        /* Disable floating on mobile */
+
+        animation: none;
       }
 
       .small-card,
